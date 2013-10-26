@@ -1,0 +1,26 @@
+﻿public class Solution {
+    public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        Arrays.sort(candidates);
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<ArrayList<Integer>>();
+        if(target<candidates[0]) return ans;
+        ArrayList<Integer> list=new ArrayList<Integer>();
+        dfs(candidates,target,ans,list,0,0);
+        return ans;
+    }
+    
+    public void dfs(int[] candidates,int target,ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> list,int index,int total){
+        if(total>target) return;
+        if(target==total){
+            ArrayList<Integer> tmp=new ArrayList<Integer>(list);
+            ans.add(tmp);
+            return;
+        }
+        for(int i=index;i<candidates.length;i++){
+            list.add(candidates[i]);
+            dfs(candidates,target,ans,list,i,total+candidates[i]);
+            list.remove(list.size()-1);
+        }
+    }
+}

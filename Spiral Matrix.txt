@@ -1,0 +1,52 @@
+﻿public class Solution {
+    public ArrayList<Integer> spiralOrder(int[][] matrix) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(matrix.length==0) return new ArrayList<Integer>();
+         
+        return sp(matrix, matrix.length, matrix[0].length, 0);
+    }
+     
+    public ArrayList<Integer> sp(int[][]mat, int row, int col, int x){
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(row <=0 || col <=0) return res;
+ 
+        //top
+        for(int i = x; i<x+col;i++)
+            res.add(mat[x][i]);
+        //right
+        for(int i = x+1; i<row-1+x;i++)
+            res.add(mat[i][col-1+x]);
+        //bottom
+        if(row>1)
+        for(int i =x+col-1;i>=x;i--)
+            res.add(mat[x+row-1][i]);
+        //left
+        if(col>1)
+        for(int i= x+row-2;i>x;i--)
+            res.add(mat[i][x]);
+        res.addAll(sp(mat, row-2, col -2, x+1));
+        return res;
+    }
+}
+
+
+
+
+public int[][] generateMatrix(int n) {  
+  int val = 1;  
+  int[][] matrix = new int[n][n];  
+  
+  for (int level = 0; level < n; ++level, --n) {  
+    // top  
+    for (int i=level; i < n; ++i) matrix[level][i] = val++;  
+    // right  
+    for (int i=level+1; i < n; ++i) matrix[i][n-1] = val++;  
+    // bottom  
+    for (int i=n-2; i >= level; --i) matrix[n-1][i] = val++;  
+    // left  
+    for (int i=n-2; i > level; --i) matrix[i][level] = val++;  
+  }  
+  
+  return matrix;  
+}

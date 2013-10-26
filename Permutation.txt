@@ -1,0 +1,30 @@
+﻿//use DFS
+ 
+public ArrayList<ArrayList<Integer>> permute(int[] num) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<ArrayList<Integer>>();
+        if(num.length==0) return ans;
+        ArrayList<Integer> list=new ArrayList<Integer>();
+        boolean[] visit=new boolean[num.length];
+        dfs(ans,list,visit,num);
+        return ans;
+    }
+    
+    public void dfs(ArrayList<ArrayList<Integer>> ans, ArrayList<Integer> list, boolean[] visit,int[] num){
+        if(list.size()==num.length){
+            ArrayList<Integer> temp=new ArrayList<Integer>();
+            temp.addAll(list);
+            ans.add(temp);
+            return;
+        }
+        for(int i=0;i<num.length;i++){
+            if(!visit[i]){
+                visit[i]=true;
+                list.add(num[i]);
+                dfs(ans,list,visit,num);
+                visit[i]=false;
+                list.remove(list.size()-1);
+            }
+        }
+    }

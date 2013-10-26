@@ -1,0 +1,65 @@
+﻿public class Solution {
+    public String minWindow(String S, String T) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        char[] Tset = new char[256];
+        char[] Sset = new char[256];
+        for(int i = 0; i< T.length(); i++)
+            Tset[T.charAt(i)]++;
+        int left = 0, count =0, min =Integer.MAX_VALUE;
+        String res="";
+        for(int i = 0;i < S.length(); i++){
+            if(Tset[S.charAt(i)] == 0) continue;
+            Sset[S.charAt(i)]++;
+            if(Sset[S.charAt(i)]<=Tset[S.charAt(i)]) count++;
+            if(count == T.length()){
+                while(Sset[S.charAt(left)]> Tset[S.charAt(left)] ||
+                Tset[S.charAt(left)] ==0){
+                    if(Sset[S.charAt(left)]> Tset[S.charAt(left)])
+                        Sset[S.charAt(left)]--;
+                    left ++;
+                }
+                if(min > i -left+1){
+                    min = i-left+1;
+                    res = S.substring(left, i+1);
+                }
+            }
+        }
+        return res;
+    }
+}
+
+
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if (s.length() == 0)
+                    return 0;
+                int i = 0, j = 0;
+                int result = 0;
+                HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+                while (j < s.length()) {
+            char c=s.charAt(j);
+                        if (!map.containsKey(c)) {
+                                map.put(c, j);
+                        } else {
+                                int length = j - i;
+                                if (result < length) {
+                                        result = length;
+                                }
+                                Integer index = map.get(c);
+                                i = Math.max(i, index + 1);
+                                map.put(c, j);
+                        }
+                        j++;
+                }
+
+
+                if (result < j - i)
+                        return j - i;
+                else
+                        return result;
+        
+    }
+}

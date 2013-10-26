@@ -1,0 +1,38 @@
+﻿public class Solution {
+    public String addBinary(String a, String b) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int i=a.length()-1;
+        int j=b.length()-1;
+        int carry=0;
+        ArrayList<Integer> l=new ArrayList<Integer>();
+        while(i>=0&&j>=0){
+            int sum=a.charAt(i)-'0'+b.charAt(j)-'0'+carry;
+            int num=sum%2;
+            carry=sum/2;
+            l.add(num);
+            i--;
+            j--;
+        }
+        while(i>=0){
+            int sum=a.charAt(i)-'0'+carry;
+            int num=sum%2;
+            carry=sum/2;
+            l.add(num);
+            i--;
+        }
+        while(j>=0){
+            int sum=b.charAt(j)-'0'+carry;
+            int num=sum%2;
+            carry=sum/2;
+            l.add(num);
+            j--;
+        }
+        if(carry==1) l.add(1);
+        StringBuffer bf=new StringBuffer();
+        for(int k=l.size()-1;k>=0;k--){
+            bf.append(l.get(k));
+        }
+        return bf.toString();
+    }
+}

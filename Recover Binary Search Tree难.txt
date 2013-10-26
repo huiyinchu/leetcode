@@ -1,0 +1,39 @@
+﻿/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void recoverTree(TreeNode root) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        TreeNode[] arr=new TreeNode[2];
+        inorder(root,arr,null);
+        if(arr[0]!=null&&arr[1]!=null){
+            int tmp=arr[0].val;
+            arr[0].val=arr[1].val;
+            arr[1].val=tmp;
+        }
+    }
+    
+    public TreeNode inorder(TreeNode root,TreeNode[] arr, TreeNode pre){
+        if(root==null) return pre;
+        TreeNode last=inorder(root.left,arr,pre);
+        if(last!=null&&last.val>root.val){
+            if(arr[0]==null){
+                arr[0]=last;
+                arr[1]=root;
+            }
+            else{
+                arr[1]=root;
+                return root;
+            }
+        }
+        
+        return inorder(root.right,arr,root);
+    }
+}

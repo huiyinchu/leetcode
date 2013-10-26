@@ -1,0 +1,10 @@
+﻿private int getHeight(TreeNode root) {  
+11:      if (root == null) return 0;  
+12:      int depL = getHeight(root.left);  
+13:      int depR = getHeight(root.right);  
+14:      if (depL < 0 || depR < 0 || Math.abs(depL - depR) > 1) return -1;  
+15:      else return Math.max(depL, depR) + 1;  
+16:    }  
+17:    public boolean isBalanced(TreeNode root) {  
+18:      return (getHeight(root) >= 0);  
+19:    }

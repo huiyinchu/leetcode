@@ -1,0 +1,24 @@
+﻿public class Solution {
+    public ArrayList<ArrayList<Integer>> subsetsWithDup(int[] S) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+         ArrayList<ArrayList<Integer>> ans=new ArrayList<ArrayList<Integer>>();
+        int len=S.length;
+        int N=1<<len;
+        ArrayList<Integer> list=new ArrayList<Integer>();
+        ans.add(list);
+        Arrays.sort(S);
+        HashSet<ArrayList<Integer>> set=new HashSet<ArrayList<Integer>>();
+        for(int i=1;i<N;i++){
+            list=new ArrayList<Integer>();
+            for(int j=0;j<len;j++){
+                if((i&(1<<j))!=0) list.add(S[j]);
+            }
+            if(!set.contains(list)){
+                ans.add(list);
+                set.add(list);
+            }
+        }
+        return ans;
+    }
+}

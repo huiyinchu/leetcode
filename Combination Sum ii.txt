@@ -1,0 +1,59 @@
+﻿public class Solution {
+    public ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+         ArrayList<ArrayList<Integer>> ans=new ArrayList<ArrayList<Integer>>();
+        if(candidates.length==0) return ans;
+        ArrayList<Integer> list=new ArrayList<Integer>();
+        Arrays.sort(candidates);
+        dfs(candidates, ans, list,target,0,new HashSet<ArrayList<Integer>>());
+        return ans;
+    }
+    
+    public void dfs(int[] candidates, ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> list,int target,int start,HashSet<ArrayList<Integer>> set){
+        int tmp=0;
+        for(int n:list){
+            tmp+=n;
+        }
+        if(tmp==target){
+            ArrayList<Integer> tlist=new ArrayList<Integer>(list);
+            if(!set.contains(tlist)){
+                ans.add(tlist);
+                set.add(tlist);
+                
+            }
+            return;
+        }
+        if(tmp>target) return;
+        for(int i=start;i<candidates.length;i++){
+            list.add(candidates[i]);
+            dfs(candidates,ans,list,target,i+1,set);
+            list.remove(list.size()-1);
+        }
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////public class Solution {
+    public ArrayList<ArrayList<Integer>> combinationSum2(int[] candidates, int target) {  
+   ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();  
+   Arrays.sort(candidates);  
+   addUp(candidates, 0, target, new ArrayList<Integer>(), results);  
+   return results;  
+ }  
+   
+ private void addUp(int[] candidates, int start, int target, ArrayList<Integer> path,  
+     ArrayList<ArrayList<Integer>> results) {  
+   if (start < 0 || target < 0) return;  
+   
+   if (0 == target) {  
+     ArrayList<Integer> res = new ArrayList<Integer>(path);  
+     results.add(res);  
+   } else {  
+     for (int i=start; i<candidates.length && candidates[i] <= target; ++i) {  
+       if (i>start && candidates[i] == candidates[i-1]) continue; // skip duplicates  
+       path.add(candidates[i]);  
+       addUp(candidates, i+1, target - candidates[i], path, results);  
+       path.remove(path.size() - 1);  
+     }  
+   }  
+ }
+}

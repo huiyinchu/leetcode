@@ -1,0 +1,32 @@
+﻿public class Solution {
+    public ArrayList<ArrayList<Integer>> combine(int n, int k) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+         if (n == 0) return null;
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+        ArrayList<ArrayList<Integer>> ans2;
+        ArrayList<Integer> list;
+        if (k == 1){
+            for (int i = 1; i <= n; i++){
+                list = new ArrayList<Integer>();
+                list.add(i);
+                ans.add(list);
+            }
+            return ans;
+        }
+        
+        for(int i = n;i >=1;i--){
+            ans2 = new ArrayList<ArrayList<Integer>>();
+            ans2 = combine(i-1, k-1);
+            if(ans2!=null){
+             for (ArrayList<Integer> temp : ans2){
+                temp.add(i);
+            }
+             ans.addAll(ans2);
+            }
+        }
+        return ans;
+
+
+    }
+}

@@ -1,0 +1,54 @@
+﻿public class Solution {
+    public String countAndSay(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(n==1) return "1";
+        String cur="1";
+        int i=2;
+        while(i<=n){
+            cur=help(cur);
+            i++;
+        }
+        return cur;
+    }
+    
+    public String help(String s){
+        StringBuffer sb=new StringBuffer();
+        int count=1;
+        for(int i=0;i<s.length()-1;i++){
+            if(s.charAt(i)==s.charAt(i+1))
+                count++;
+            else{
+                sb.append(count);
+                sb.append(s.charAt(i));
+                count=1;
+            }
+        }
+        sb.append(count);
+        sb.append(s.charAt(s.length()-1));
+        return sb.toString();
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////
+public class Solution {
+   public String countAndSay(int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        String res="1";
+        for(int i=0;i<n-1;i++){
+            StringBuffer sb=new StringBuffer();
+            for(int j=0;j<res.length();j++){
+                int count=1;
+                while(j<res.length()-1&&res.charAt(j)==res.charAt(j+1)){
+                    j++;
+                    count++;
+                }
+                sb.append(String.valueOf(count));
+                sb.append(String.valueOf(res.charAt(j)));
+            }
+            res=sb.toString();
+        }
+        return res;
+        
+   }
+}

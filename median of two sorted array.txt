@@ -1,0 +1,6 @@
+﻿http://fisherlei.blogspot.com/2012/12/leetcode-median-of-two-sorted-arrays.html
+
+
+一道题包含了2道题：
+1. median of two sorted array
+2. kth element of two sorted arrays

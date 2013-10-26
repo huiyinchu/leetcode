@@ -1,0 +1,143 @@
+﻿import java.util.Set;
+import java.util.HashSet;
+import java.util.Hashtable;
+public class Solution {
+    public int ladderLength(String start, String end, HashSet<String> dict) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        Hashtable<String,String> path = new Hashtable<String,String>();//current, prev
+        Set<String> visit = new HashSet<String>();
+        Queue<String> queue = new LinkedList<String>();//bfs queue
+        queue.add(start);
+        visit.add(start);
+        while(queue.size()>0){
+            String prev = queue.poll();
+            for(String curr: adjacent(prev, dict)){//adjacent words
+                if(curr.equals(end)){
+                    int count = 1;
+                    while(prev!=null){
+                        prev = path.get(prev);
+                        count++;
+                    }
+                    return count;
+                }
+                if(!visit.contains(curr)){
+                    path.put(curr, prev);
+                    visit.add(curr);
+                    queue.add(curr);
+                }
+            }
+        }
+        return 0;
+    }
+    public Set<String> adjacent(String str, Set<String> dict){
+        Set<String> res = new HashSet<String>();
+        for(int i=0;i<str.length();i++){
+            for(char j='a';j<='z';j++){
+                char[] chs = str.toCharArray();
+                if(chs[i]!=j){
+                    chs[i]=j;
+                    String nstr = new String(chs);
+                    if(dict.contains(nstr))
+                        res.add(nstr);
+                }
+            }
+        }
+        return res;
+    }
+}
+
+
+public class Solution {
+    public int ladderLength(String start, String end, HashSet<String> dict) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        dict.add(end);
+        int count=2;
+        ArrayList<String> list=new ArrayList<String>();
+        list.add(start);
+        list.add(null);
+        while(list.size()>1){
+            String cur=list.remove(0);
+            while(cur!=null){
+                for(String tmp:help(cur,dict)){
+                    if(tmp.equals(end)) return count;
+                    list.add(tmp);
+                    dict.remove(tmp);
+                }
+                cur=list.remove(0);
+            }
+            list.add(null);
+            count++;
+        }
+        return 0;
+    }
+    
+    public ArrayList<String> help(String cur, HashSet<String> dict){
+        ArrayList<String> ans=new ArrayList<String>();
+        for(String s:dict){
+            int count=0;
+            for(int i=0;i<cur.length();i++){
+                if(cur.charAt(i)!=s.charAt(i)) count++;
+                if(count>1) break;
+            }
+            if(count==1) ans.add(s);
+        }
+        return ans;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public class Solution {
+    public ArrayList<ArrayList<String>> findLadders(String start, String end, HashSet<String> dict) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        ArrayList<ArrayList<String>> ans=new ArrayList<ArrayList<String>>();
+        dict.add(end);
+        ArrayList<String> dict2=new ArrayList<String>();
+        for(String s:dict){
+            dict2.add(s);
+        }
+        boolean[] visit=new boolean[dict.size()];
+        ArrayList<String> list=new ArrayList<String>();
+        list.add(start);
+        dfs(start,end,dict2,ans,list,visit);
+        return ans;
+    }
+    
+    public void dfs(String start,String end,ArrayList<String> dict2,ArrayList<ArrayList<String>> ans,ArrayList<String> list,boolean[] visit){
+        if(start.equals(end)){
+            ArrayList<String> tmp=new ArrayList<String>(list);
+            ans.add(list);
+            return;
+        }
+        for(int i=0;i<dict2.size();i++){
+            if(visit[i]==false&&adjacent(start,dict2.get(i))){
+                list.add(dict2.get(i));
+                visit[i]=true;
+                dfs(dict2.get(i),end,dict2,ans,list,visit);
+                list.remove(list.size()-1);
+                visit[i]=false;
+            }
+        }
+    }
+    
+    public boolean adjacent(String s1,String s2){
+        int count=0;
+        for(int i=0;i<s1.length();i++){
+            if(s1.charAt(i)!=s2.charAt(i)) count++;
+            if(count >1) return false;
+        }
+        return count==1;
+    }
+}

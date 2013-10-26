@@ -1,0 +1,48 @@
+﻿public class Solution {
+    public boolean isNumber(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(s.length()==0) return false;
+        int left=0, right = s.length()-1;
+        while(left<s.length() && s.charAt(left)==' ') 
+            left++;
+         
+        while(right>=0 && s.charAt(right) == ' ') 
+            right--;
+        boolean firstDot=false, firstE=false,firstNum=false;
+        if(left>=s.length()) return false;
+        if(s.charAt(left) =='+' || s.charAt(left) =='-') {
+            left++;
+        }
+        while(left<=right){
+            if(s.charAt(left)<='9' && s.charAt(left) >= '0')
+                firstNum = true;
+            else
+            if(s.charAt(left) =='e'){
+                if(firstE==true || firstNum == false) 
+                    return false; 
+                if(firstE==false){
+                    firstE= true;           
+                    firstNum = false;
+                }
+            }
+            else
+            if(s.charAt(left) =='+' || s.charAt(left) =='-'){
+                if( s.charAt(left-1)!='e') 
+                    return false;
+            }
+            else
+            if(s.charAt(left) == '.'){
+                if(firstE|| firstDot) return false;
+                else
+                    firstDot = true;
+            }
+            else{
+                return false;
+            }
+            left++;
+                 
+        }
+        return firstNum;
+    }
+}

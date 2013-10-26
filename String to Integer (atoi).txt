@@ -1,0 +1,29 @@
+﻿public class Solution {
+    public int atoi(String str) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        long res = 0;
+        int i = 0;
+        boolean pos=true;
+        if(str==null || str.length()==0) return 0;
+        while(i<str.length() && str.charAt(i) ==' ') i++;
+        if(i<str.length() && str.charAt(i) =='+')i++;
+        else
+        if(i<str.length() && str.charAt(i) =='-'){
+            pos = false;
+            i++;
+        }
+        while(i<str.length()){
+            char c = str.charAt(i);
+            if(c>'9' || c < '0') break;
+            res = res*10 + (c-'0');
+            if(res>Integer.MAX_VALUE) break;
+            i++;
+        }
+        res = pos? res: -res;
+        if (res>Integer.MAX_VALUE)  res= Integer.MAX_VALUE;
+        if (res<Integer.MIN_VALUE)  res= Integer.MIN_VALUE;
+        return (int) res;
+         
+    }
+}

@@ -1,0 +1,59 @@
+﻿dp:
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        boolean[][] dp=new boolean[s.length()+1][p.length()+1];
+        for(int i=0;i<dp[0].length;i++){
+            if(i==0||p.charAt(i-1)=='*'&&dp[0][i-1]==true)
+                dp[0][i]=true;
+        }
+        for(int i=1;i<dp.length;i++){
+            for(int j=1;j<dp[0].length;j++){
+                if(s.charAt(i-1)==p.charAt(j-1)||p.charAt(j-1)=='?')
+                    dp[i][j]=dp[i-1][j-1];
+                if(p.charAt(j-1)=='*'){
+                    dp[i][j]=dp[i-1][j]||dp[i][j-1];
+                }
+            }
+        }
+        return dp[s.length()][p.length()];
+    }
+}
+/////////////////////////////////////////////////////
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+ 
+        int i = 0, j = 0;
+ 
+        //the following is a recursive one, it timed out on large input
+        if (p.length() == 0) {
+            return s.length() == 0;
+        }
+        if (s.length() == 0) {
+            return p.equals("") || allStar(p);
+        }
+ 
+        if (s.charAt(0) == p.charAt(0) || p.charAt(0) == '?') {
+            return isMatch(s.substring(1), p.substring(1));
+        }
+ 
+        if (p.charAt(0) == '*') {
+            return isMatch(s.substring(1), p) || isMatch(s, p.substring(1));
+        }
+ 
+        return false;
+    }
+ 
+    public boolean allStar (String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != '*') {
+                return false;
+            }
+        }
+ 
+        return true;
+    }
+}

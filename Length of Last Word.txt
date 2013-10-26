@@ -1,0 +1,10 @@
+﻿public class Solution {
+    public int lengthOfLastWord(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+       int len = 0, last = s.length()-1;  
+       while (last>=0 && s.charAt(last) == ' ') last--;  
+       while (last>=0 && s.charAt(last--) != ' ') ++len;  
+       return len;  
+    }
+}

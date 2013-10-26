@@ -1,0 +1,39 @@
+﻿public class Solution {
+    public double pow(double x, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(n==0) return 1;
+        boolean pos=true;
+        if(n<0){
+            n=-n;
+            pos=false;
+        }
+        double ans=x;
+        while(n>1){
+            ans=ans*x;
+            n--;
+        }
+        if(!pos) ans=1/ans;
+        return ans;}
+}
+
+
+
+
+public class Solution {
+    public double pow(double x, int n) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        boolean isNeg = n < 0;
+        double result = 1.0;
+        n = Math.abs(n);
+        while(n>=1){
+            if( (n&1) == 1) 
+                result *= x;
+            x *= x;
+            n = n>>1;
+        }
+        return isNeg? 1/result: result;
+    }
+    
+}

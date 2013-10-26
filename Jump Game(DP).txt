@@ -1,0 +1,63 @@
+﻿public class Solution {
+    public boolean canJump(int[] A) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int n = A.length;
+        int flag = A.length-1;
+        for(int i=A.length -2; i>=0; i--)
+            if(A[i] >= flag -i)//reachacle from A[i] to flag
+                flag = i;
+        return flag == 0;
+    }
+}
+
+
+public class Solution {
+    public boolean canJump(int[] A) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(A.length<2) return true;
+        if(A[0]==0) return false;
+        int i=0;
+        int reach = A[0];
+        if(reach>=A.length-1) return true;
+        while(i<=reach){
+            if(A[i]+i>reach){
+                reach=A[i]+i;
+                if(reach>=A.length-1) return true;
+            }
+            i++;
+        }
+        return false;
+        
+    }
+}
+///////////////////////////////////////////
+
+
+public class Solution {
+    public int jump(int[] A) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        int max = A[0]; //the max index of the next jump
+        int min = 1; //the min index of the next jump
+        int step = 0;
+ 
+        if (A.length == 1) {
+            return 0;
+        }
+        while (max < A.length-1) {
+            int m = max;
+            for (int i = min; i <= max; i++) {
+                if (m < A[i] + i) {
+                    m = A[i] + i;
+                }
+            }
+            min = max+1;
+            max = m;
+            step++;
+        }
+ 
+        return step+1;
+    }
+}

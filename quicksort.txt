@@ -1,0 +1,29 @@
+﻿import java.util.Arrays;
+
+
+
+
+public class quicksort {
+        public void quicksort(int[] arr){
+                int pivot=findpivot(arr);
+                quicksort(Arrays.copyOfRange(arr, 0, pivot));
+                quicksort(Arrays.copyOfRange(arr, pivot+1, arr.length));
+        }
+        
+        public int findpivot(int[] arr){
+                int pivot=arr.length/2;
+                int i=0,j=arr.length-1;
+                while(i<j){
+                        while(arr[i]<arr[pivot]) i++;
+                        while(arr[j]>arr[pivot]) j--;
+                        int tmp=arr[i];
+                        arr[i]=arr[j];
+                        arr[j]=tmp;
+                }
+                return pivot;
+        }
+        
+        public static void main(String[] args){
+                new quicksort().quicksort(new int[]{5,4,3,2,1});
+        }
+}

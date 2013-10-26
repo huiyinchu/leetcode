@@ -1,0 +1,20 @@
+﻿public class Solution {
+    public String longestPalindrome(String s) {
+        // Start typing your Java solution below
+        // DO NOT write main() function
+        if(s.length()<=1) return s;
+        int n=s.length();
+        boolean[][] dp=new boolean[n][n];
+        String ans=s.substring(0,1);
+        for(int i=n-1;i>=0;i--){
+            for(int j=i;j<n;j++){
+                if(s.charAt(i)==s.charAt(j)&&(j-i<2||dp[i+1][j-1]==true)){
+                    dp[i][j]=true;
+                    if(j-i+1>ans.length())
+                        ans=s.substring(i,j+1);
+                }
+            }
+        }
+        return ans;
+    }
+}
